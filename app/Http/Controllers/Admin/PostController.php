@@ -7,6 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -39,8 +40,14 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        
-        Post::create($request->all());
+        $params = $request->all();
+        unset($params['image']);
+        if($request->has('image')){
+            $path = $request->file('image')->store('posts');
+
+            $params['image'] = $path;
+        }
+        Post::create($params);
         return redirect()->route('home');
     }
 
@@ -77,7 +84,17 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
-        $post->update($request->all());
+        $params = $request->all();
+        unset($params['image']);
+
+        if($request->has('image')){
+            Storage::delete($post->image);
+            $path = $request->file('image')->store('posts');
+            $params['image'] = $path;
+
+        }
+
+        $post->update($params);
         return redirect()->route('home');
     }
 

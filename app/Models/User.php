@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'status'
     ];
 
     /**
@@ -40,8 +41,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+    
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 
     public function isAdmin(){
         return $this->admin === 1;
+    }
+    public function status(){
+        return $this->status === 'active';
     }
 }

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', "Админ панель")
 @section('content')
 <div class="col-md-12">
     <h1>Ведение блога</h1>

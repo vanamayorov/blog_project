@@ -28,4 +28,7 @@ class BlogController extends Controller
         $posts = Post::get();
         return view('auth.blog.index', compact('posts'));
     }
+    public function toDo(){
+        return view('auth.blog.todo-list');
+    }
 }

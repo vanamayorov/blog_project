@@ -19,9 +19,8 @@ Auth::routes([
     'verify' => false
 ]);
 
-
+Route::get('/logout', 'Auth\LoginController@logout')->name('get-logout');
 Route::get('/', 'MainController@index')->name('index');
-
 
 Route::get('/portfolio', 'MainController@portfolio')->name('portfolio');
 
@@ -33,6 +32,13 @@ Route::group([
     Route::get('/{postId}', 'MainController@blogPost')->name('blogPost');
 });
 
+Route::group([
+    'prefix' => 'person',
+    'namespace' => 'Person',
+    'as' => 'person.'
+], function(){
+    Route::get('/info', 'PersonController@index')->name('info.index');
+});
 
 
 Route::group([
@@ -40,8 +46,14 @@ Route::group([
     'namespace' => 'Admin'
 ], function(){
     Route::get('/home', 'BlogController@index')->name('home');
+    Route::get('/todo', 'BlogController@toDo')->name('toDo');
     Route::resource('/post', 'PostController');
     Route::resource('/categories', 'CategoryController');
+    Route::resource('/users', 'UserController');
+    Route::post('/delete/{id}', 'CommentController@delete')->name('delete');
 });
 
+
+Route::get('/findPost', 'MainController@findPost');
 Route::get('/{category}', 'CategoryController@category')->name('category');
+Route::post('/comments/{post_id}', 'CommentController@store')->name('write-post');

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -34,14 +34,23 @@
                     <!-- Left Side Of Navbar -->
                     @admin
                     <ul class="navbar-nav mr-auto pl-5">
-                        <li><a href="{{route('categories.index')}}" class="mr-2">Категории</a></li>
-                        <li><a href="{{route('home')}}">Посты</a></li>
+                        <li><a href="{{route('categories.index')}}" class="mr-4">Категории</a></li>
+                        <li><a href="{{route('home')}}" class="mr-4">Посты</a></li>
+                        <li><a href="{{route('users.index')}}">Пользователи</a></li>
                     </ul>
                     @endadmin
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @admin
+                        @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('login')}}">Войти</a>
+                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{route('register')}}">Зарегистрироваться</a>
+                         </li>   
+                        @endguest
+                        @auth
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -59,7 +68,7 @@
                                     </form>
                                 </div>
                             </li>
-                        @endadmin
+                        @endauth
                     </ul>
                 </div>
             </div>

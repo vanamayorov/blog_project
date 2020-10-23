@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', "Все категории")
 @section('content')
 <div class="col-md-12">
     <h1>Все категории</h1>

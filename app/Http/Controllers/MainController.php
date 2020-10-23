@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function index(){
-        $posts = Post::orderBy('created_at', 'DESC')->take(2)->get();
+        $posts = Post::orderBy('created_at', 'DESC')->take(4)->get();
         return view('index', compact('posts'));
     }
 
@@ -26,6 +26,13 @@ class MainController extends Controller
     }
     public function portfolio(){
         return view('portfolio');
+    }
+
+    public function findPost(Request $request){
+        $value = $request->value;
+        $categories = Category::get();
+        $posts = Post::where('title', 'like', '%' . $value . '%')->first();
+        return view('blog', compact('posts', 'categories'));
     }
     
 }

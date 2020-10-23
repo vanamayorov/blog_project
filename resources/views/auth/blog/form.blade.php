@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', isset($post) ? 'Редактировать пост: ' . $post->title : 'Написать пост' )
 @section('content')
 <div class="col-md-12">
     @isset($post)

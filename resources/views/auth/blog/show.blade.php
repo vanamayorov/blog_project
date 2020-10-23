@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', "Пост: " . $post->title)
 @section('content')
 <div class="panel">
                 <h1>Название статьи: <b>{{$post->title}}</b></h1>
@@ -11,6 +12,7 @@
                         <th>Короткое описание</th>
                         <th>Контент</th>
                         <th>Ссылка</th>
+                        <th>К-ство комментариев</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,6 +26,7 @@
                             <td>{{$post->desc}}</td>
                             <td>{{$post->content}}</td>
                             <td><a href="{{route('blogPost', $post)}}">Click</a></td>
+                            <td>{{$post->comments->count()}}</td>
                         </tr>
                     </tbody>
                 </table>
